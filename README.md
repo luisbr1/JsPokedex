@@ -1,8 +1,8 @@
 <h1 align="center">
-  Como desenvolver uma pokedex em JavaScript
+  Desenvolvendo uma pokedex em JavaScript
 </h1>
 
-<h6 align="center">Como construir uma pokedex com JavaScript puro</h6>
+<h6 align="center">Desenvolvendo uma pokedex com JavaScript puro para fins de treino com a linguagem</h6>
 </br>
 
 ---
