@@ -18,3 +18,25 @@ const getTypeColor = type => {
     fighting: '#E6E0D4'
   }[type] || normal
 }
+
+const handlePageLoaded = async () => {
+  try {
+    const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=15&offset=0')
+
+    if(!response.ok){
+      throw Error('Não foi possivel obter as informações')
+    }
+
+    const { results: pokeApiResults } = await response.json();
+    const promises = pokeApiResults.map(result => fetch(result.url));
+    const responses = await Promise.allSettled(promises);
+    const fulfilled = responses.filter(response => response.status === 'fulfilled');
+    const pokePromises = fulfilled.map(url => url.value.json());
+    const pokemons = await Promise.all(pokePromises);
+    console.log(pokemons)
+  } catch (error) {
+    console.log('algo deu errado', error);
+  }
+}
+
+handlePageLoaded()
