@@ -19,6 +19,21 @@ const getTypeColor = type => {
   }[type] || normal
 }
 
+const getPokemonsType = async (pokeApiResults) => {
+  const promises = pokeApiResults.map(result => fetch(result.url));
+  const responses = await Promise.allSettled(promises);
+  const fulfilled = responses.filter(response => response.status === 'fulfilled');
+  const pokePromises = fulfilled.map(url => url.value.json());
+  const pokemons = await Promise.all(pokePromises);
+  return pokemons.map(fulfilled => fulfilled.types.map(info => info.type.name));
+}
+
+const getPokemonsIds = pokeApiResults => pokeApiResults.map(({ url }) => {
+  const urlAsArray = url.split('/')
+  return urlAsArray.at(urlAsArray.length - 2)
+})
+
+
 const handlePageLoaded = async () => {
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=15&offset=0')
@@ -28,12 +43,12 @@ const handlePageLoaded = async () => {
     }
 
     const { results: pokeApiResults } = await response.json();
-    const promises = pokeApiResults.map(result => fetch(result.url));
-    const responses = await Promise.allSettled(promises);
-    const fulfilled = responses.filter(response => response.status === 'fulfilled');
-    const pokePromises = fulfilled.map(url => url.value.json());
-    const pokemons = await Promise.all(pokePromises);
-    console.log(pokemons)
+
+    const types = await getPokemonsType(pokeApiResults);
+
+    const ids = getPokemonsIds(pokeApiResults)
+    
+    console.log(ids)
   } catch (error) {
     console.log('algo deu errado', error);
   }
