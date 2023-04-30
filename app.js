@@ -42,31 +42,40 @@ const getPokemonImgs = async ids => {
   return fulfilled.map(response => response.value.url)
 }
 
-
-const handlePageLoaded = async () => {
+const getPokemons = async () => {
   try {
     const response = await fetch('https://pokeapi.co/api/v2/pokemon?limit=15&offset=0')
 
     if(!response.ok){
-      throw Error('Não foi possivel obter as informações')
+      throw new Error('Não foi possivel obter as informações')
     }
 
     const { results: pokeApiResults } = await response.json();
-
     const types = await getPokemonsType(pokeApiResults);
-
     const ids = await getPokemonsIds(pokeApiResults)
-
     const imgs = await getPokemonImgs(ids)
-
-    const pokemons = ids.map((id, i) => ({id, name: pokeApiResults[i].name}))
-
-    
-    
-    console.log(types)
+    const pokemons = ids.map((id, i) => ({id, name: pokeApiResults[i].name, types: types[i], imgUrl: imgs[i]}))   
+    return pokemons 
   } catch (error) {
     console.log('algo deu errado', error);
   }
+}
+
+const renderPokemons = pokemons => {
+  const ul = document.querySelector('[data-js="pokemons-list"]')
+
+  pokemons.forEach(pokemon => {
+    const li = document.createElement('li')
+  })
+
+  console.log(ul)
+}
+
+const handlePageLoaded = async () => {
+  const pokemons = await getPokemons()
+  renderPokemons(pokemons)
+  console.log(pokemons)
+
 }
 
 handlePageLoaded()

@@ -1,8 +1,8 @@
 <h1 align="center">
-  Desenvolvendo uma pokedex em JavaScript
+  Uma pokedex em JavaScript
 </h1>
 
-<h6 align="center">Desenvolvendo uma pokedex com JavaScript puro para fins de treino com a linguagem</h6>
+<h6 align="center">Uma pokedex com JavaScript puro para fins de treino com a linguagem</h6>
 </br>
 
 ---
