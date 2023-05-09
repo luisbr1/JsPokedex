@@ -64,8 +64,16 @@ const getPokemons = async () => {
 const renderPokemons = pokemons => {
   const ul = document.querySelector('[data-js="pokemons-list"]')
 
-  pokemons.forEach(pokemon => {
+  pokemons.forEach(({ id, name, types, imgUrl}) => {
     const li = document.createElement('li')
+    const img = document.createElement('img')
+    const nameContainer = document.createElement('h2')
+    const typeContainer = document.createElement('p')
+    const [firstType] = types
+
+    img.setAttribute('src', imgUrl)
+    img.setAttribute('alt', name)
+    img.setAttribute('class', 'card ${firstType}')
   })
 
   console.log(ul)
