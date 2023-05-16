@@ -7,6 +7,10 @@
 
 ---
 
+<p align="center">Adicionar imagem aqui</p>
+
+---
+
 <h2 align="center">Tem alguma dúvida ou sugestão?</h2>
 
 <p align="center">Envie um email para <a href="luisbr123@gmail.com">luisbr123@gmail.com</a></p>
